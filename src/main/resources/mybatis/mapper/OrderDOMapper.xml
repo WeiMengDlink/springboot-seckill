@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ypj.dao.OrderDOMapper">
+    <resultMap id="BaseResultMap" type="com.ypj.dataobject.OrderDO">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="ware_id" jdbcType="INTEGER" property="wareId"/>
+        <result column="ware_price" jdbcType="DECIMAL" property="warePrice"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="sum_price" jdbcType="DECIMAL" property="sumPrice"/>
+        <result column="promotion_id" jdbcType="INTEGER" property="promotionId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, ware_id, ware_price, amount, sum_price, promotion_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete
+        from order_info
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.ypj.dataobject.OrderDO">
+        insert into order_info (id, user_id, ware_id, ware_price, amount, sum_price, promotion_id)
+        values (#{id,jdbcType=VARCHAR},
+                #{userId,jdbcType=INTEGER},
+                #{wareId,jdbcType=INTEGER},
+                #{warePrice,jdbcType=DECIMAL},
+                #{amount,jdbcType=INTEGER},
+                #{sumPrice,jdbcType=DECIMAL},
+                #{promotionId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ypj.dataobject.OrderDO">
+        insert into order_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="wareId != null">
+                ware_id,
+            </if>
+            <if test="warePrice != null">
+                ware_price,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="sumPrice != null">
+                sum_price,
+            </if>
+            <if test="promotionId != null">
+                promotion_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="wareId != null">
+                #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="warePrice != null">
+                #{warePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="sumPrice != null">
+                #{sumPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="promotionId != null">
+                #{promotionId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ypj.dataobject.OrderDO">
+        update order_info
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="wareId != null">
+                ware_id = #{wareId,jdbcType=INTEGER},
+            </if>
+            <if test="warePrice != null">
+                ware_price = #{warePrice,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="sumPrice != null">
+                sum_price = #{sumPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="promotionId != null">
+                promotion_id = #{promotionId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ypj.dataobject.OrderDO">
+        update order_info
+        set user_id    = #{userId,jdbcType=INTEGER},
+            ware_id    = #{wareId,jdbcType=INTEGER},
+            ware_price = #{warePrice,jdbcType=DECIMAL},
+            amount     = #{amount,jdbcType=INTEGER},
+            sum_price  = #{sumPrice,jdbcType=DECIMAL}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>
